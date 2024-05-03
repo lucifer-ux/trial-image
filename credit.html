@@ -1,0 +1,856 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loan MarketPlace</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://picasso.juspay.in/images/juspay/icon/base_color.png"
+    />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      input {
+        border: none;
+        outline: 0;
+        font-size: 18px;
+      }
+
+      .imageView {
+        object-fit: contain;
+      }
+
+      body {
+        background-color: #2a2e2c;
+        height: 100%;
+        width: 100%;
+        position: relative;
+      }
+
+      html {
+        background-color: #2a2e2c;
+        height: 100%;
+        width: 100%;
+      }
+
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+      }
+
+      ::placeholder {
+        opacity: 0.35;
+      }
+
+      .brandLoader {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        box-sizing: border-box;
+        flex-flow: column wrap;
+        background-color: #f5f6f8;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0;
+        flex: 0 0 auto;
+      }
+
+      .juspayLogo {
+        animation: 4s linear 0s infinite normal none running rotation;
+        -webkit-animation: rotation 4s infinite linear;
+      }
+
+      @-webkit-keyframes rotation {
+        from {
+          -webkit-transform: rotate(0);
+        }
+
+        to {
+          -webkit-transform: rotate(359deg);
+        }
+      }
+
+      @keyframes rotation {
+        from {
+          -webkit-transform: rotate(0);
+        }
+
+        to {
+          -webkit-transform: rotate(359deg);
+        }
+      }
+
+      iframe {
+        width: 100%;
+        height: 100%;
+      }
+
+      #content {
+        width: 411px;
+        height: 800px;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        position: absolute;
+        margin: auto;
+        overflow: hidden;
+      }
+      @media screen and (max-width: 411px) {
+        #content {
+          height: 100%;
+          width: 100%;
+          overflow: initial;
+        }
+        body {
+          background-color: #f4f4f4;
+        }
+        html {
+          background-color: #f4f4f4;
+        }
+      }
+      @media screen and (max-height: 800px) {
+        #content {
+          height: 100%;
+        }
+      }
+
+      .brandLoader {
+        border-radius: 1em;
+        height: 800px;
+        width: 411px;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        position: absolute;
+        margin: auto;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        box-sizing: border-box;
+      }
+      .toolbar {
+        height: 74px;
+        padding: 12px 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        box-sizing: border-box;
+        background-color: #fff;
+      }
+      .sectionHeader {
+        height: 40px;
+        margin: 30px 0 16px 0;
+        width: 240px;
+        border-radius: 4px;
+      }
+      .toolbarContent {
+        width: 80%;
+        max-width: 900px;
+        display: flex;
+      }
+      .leftText {
+        flex: 1;
+        margin-right: 4px;
+        border-radius: 6px;
+      }
+      .centerText {
+        flex: 2;
+        margin-right: 4px;
+        border-radius: 6px;
+      }
+      .rightText {
+        flex: 1;
+        border-radius: 6px;
+      }
+      .screen {
+        width: 100%;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+      }
+      .viewContainer {
+        width: 80%;
+        max-width: 900px;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10%;
+      }
+      .view {
+        display: flex;
+        flex: 1;
+        border: 1px solid #dfdfdf;
+      }
+      .sidebar {
+        flex: 2;
+        background-color: #fafafa;
+        display: flex;
+        flex-direction: column;
+      }
+      .sidebarItem {
+        height: 64px;
+        margin-bottom: 8px;
+        border-radius: 4px;
+        display: flex;
+        padding-left: 16px;
+        align-items: center;
+      }
+      .listContainer {
+        display: flex;
+        flex: 5;
+        background-color: #fff;
+        flex-direction: column;
+      }
+      .listItem {
+        align-items: center;
+        height: 64px;
+        border-radius: 4px;
+        padding-left: 12px;
+        padding-right: 12px;
+        margin-bottom: 8px;
+        display: flex;
+      }
+      .listItems {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .line {
+        height: 20px;
+        width: 100%;
+        margin-bottom: 4px;
+        border-radius: 4px;
+      }
+      .listItemText {
+        flex: 1;
+        padding: 8px;
+        align-items: center;
+      }
+      .icon {
+        border-radius: 20px;
+        height: 40px;
+        width: 40px;
+      }
+      .smallIcon {
+        border-radius: 8px;
+        height: 16px;
+        width: 16px;
+      }
+      .sidebarIcon {
+        height: 30px;
+        width: 40px;
+        border-radius: 4px;
+        margin-right: 8px;
+      }
+      .sidebarText {
+        height: 30px;
+        width: 100%;
+        border-radius: 4px;
+        margin-right: 16px;
+      }
+      .anim {
+        position: relative;
+        background: linear-gradient(
+          to right,
+          #f6f7f8 8%,
+          #edeef1 18%,
+          #f6f7f8 33%
+        );
+        background-size: 800px 104px;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+        animation-iteration-count: infinite;
+        animation-name: shimmer;
+        animation-timing-function: linear;
+      }
+      .filler {
+        flex: 1;
+      }
+      .juspayBrand {
+        display: flex;
+        height: 70px;
+        justify-content: center;
+        background-color: #fff;
+        align-items: center;
+      }
+      .mobileBranding {
+        visibility: hidden;
+      }
+      .brandLogo {
+        height: 16px;
+        width: 136px;
+        margin-right: 3px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .listContainerHeader {
+        height: 20px;
+        width: 200px;
+        margin-left: 16px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+        border-radius: 4px;
+      }
+      @keyframes shimmer {
+        0% {
+          background-position: -400px 0;
+        }
+        100% {
+          background-position: 400px 0;
+        }
+      }
+      .toolbar {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+      .toolbarContent {
+        flex: 1;
+      }
+      .leftText {
+        max-width: 40px;
+      }
+      .rightText {
+        display: none;
+      }
+      .sectionHeader {
+        height: 30px;
+      }
+      .sidebar {
+        display: none;
+      }
+      .viewContainer {
+        width: 100%;
+        padding: 12px 16px;
+        border: none;
+      }
+      .listContainer {
+        border-radius: 4px;
+      }
+      .mobileBranding {
+        visibility: visible;
+      }
+      .listContainerHeader {
+        visibility: hidden;
+      }
+    </style>
+
+    <script>
+      console.log("ewfwe");
+      try {
+        window.skipPreFetch = true;
+      } catch (e) {
+        console.error(e);
+      }
+      console.log("ewfwe12");
+      window.addEventListener("unload", function () {});
+      window.addEventListener("beforeunload", function () {});
+
+      function uuidv4() {
+        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+          /[xy]/g,
+          function (c) {
+            var r = (Math.random() * 16) | 0,
+              v = c == "x" ? r : (r & 0x3) | 0x8;
+            return v.toString(16);
+          }
+        );
+      }
+
+      function start() {
+        console.error("load start");
+        const url = window.location.href;
+        console.log("start ", url);
+        var isEtbFlow = false;
+        var paymentPageStatusFlow = false;
+        var params;
+        const hyperServiceObject = new window.HyperServices();
+        let action = "";
+        try {
+          params = JSON.parse(atob(url.split("?v=")[1])).split("&");
+        } catch (error) {
+          params = url.split("?")[1].split("&");
+          paymentPageStatusFlow = true;
+        }
+        params.forEach((keyvalue) => {
+          if (
+            keyvalue.split("=")[0] === "isEtbFlow" &&
+            keyvalue.split("=")[1].toLowerCase() == "true"
+          ) {
+            isEtbFlow = true;
+          }
+          if (keyvalue.split("=")[0] === "action") {
+            action = keyvalue.split("=")[1].toLowerCase();
+          }
+        });
+
+        const titleChangeHandler = () => {
+          isEtbFlow
+            ? (document.title = "Juspay")
+            : (document.title = "Loan MarketPlace");
+          console.log(`Checking etbFLow ${isEtbFlow}`);
+          console.log(document.title);
+        };
+
+        titleChangeHandler();
+
+        if (action === "startupideeplink") {
+          loanLinkFlowHandler();
+        } else if (isEtbFlow || action === "startpaymentpage") {
+          etbFlowHandler();
+        } else {
+          loanLinkFlowHandler();
+        }
+
+        function loanLinkFlowHandler() {
+          console.log("loanLinkFlowHandler");
+          function hyperCallbackHandler(eventData) {
+            console.log(" Event Result => ", eventData);
+            try {
+              if (eventData) {
+                const eventJSON = eventData;
+                const event = eventJSON.event;
+                // Check for event key
+                if (event == "hide_loader") {
+                  let loaderLayout = document.getElementById("brandLoader");
+                  if (loaderLayout) {
+                    loaderLayout.style.display = "none";
+                    loaderLayout.style.height = "0px";
+                  }
+                } else if (event == "initiate_result") {
+                  console.log("initiate_result sdkPayload", eventData);
+
+                  //Handle initiate result here
+                  var processPayload = {
+                    requestId: uuidv4(),
+                    service: "in.juspay.hypercredit",
+                    payload: {
+                      action: paymentPageStatusFlow
+                        ? "paymentPageStatusHandler"
+                        : "startLoanMarketPlace",
+                      customerId: "",
+                    },
+                  };
+                  params.forEach((keyvalue) => {
+                    if (keyvalue.split("=")[0] === "productName")
+                      processPayload["payload"][keyvalue.split("=")[0]] =
+                        JSON.parse(keyvalue.split("=")[1]);
+                    else if (keyvalue.split("=")[0] === "products")
+                      processPayload["payload"][keyvalue.split("=")[0]] =
+                        JSON.parse(keyvalue.split("=")[1]);
+                    else if (keyvalue.split("=")[0] === "isAgent")
+                      processPayload["payload"][keyvalue.split("=")[0]] =
+                        JSON.parse(keyvalue.split("=")[1]);
+                    else if (keyvalue.split("=")[0] === "isEtbFlow") {
+                      processPayload["payload"][keyvalue.split("=")[0]] =
+                        JSON.parse(keyvalue.split("=")[1].toLowerCase());
+                    } else if (keyvalue.split("=")[0] === "action") {
+                      processPayload["payload"][keyvalue.split("=")[0]] =
+                        paymentPageStatusFlow
+                          ? "paymentPageStatusHandler"
+                          : keyvalue.split("=")[1];
+                    } else
+                      processPayload["payload"][keyvalue.split("=")[0]] =
+                        keyvalue.split("=")[1];
+                  });
+                  if (
+                    !processPayload.payload.merchantId ||
+                    processPayload.payload.merchantId === ""
+                  ) {
+                    processPayload.payload.merchantId =
+                      localStorage.getItem("merchantId");
+                  }
+                  if (
+                    !processPayload.payload.clientId ||
+                    processPayload.payload.clientId === ""
+                  ) {
+                    processPayload.payload.clientId =
+                      localStorage.getItem("clientId");
+                  }
+                  hyperServiceObject.process(
+                    processPayload,
+                    hyperCallbackHandler
+                  );
+                } else if (event == "process_result") {
+                  //Handle process result here
+                  try {
+                    let eventPayload = eventJSON.payload;
+                    let contentDiv = document.getElementById("content");
+                    if (contentDiv) {
+                      if (eventPayload.defaultWidth) {
+                        if (window.matchMedia("(max-width: 411px)").matches) {
+                          contentDiv.style.width = "100%";
+                        } else {
+                          contentDiv.style.width = "411px";
+                        }
+                      } else if (eventPayload.width)
+                        contentDiv.style.width = eventPayload.width;
+                    }
+                  } catch (e) {
+                    console.error("error in process_result", e);
+                  }
+                } else if (event == "user_event") {
+                  //Handle Payment Page events
+                } else {
+                  console.log(
+                    "Unhandled event",
+                    event,
+                    " Event data",
+                    eventData
+                  );
+                }
+              } else {
+                console.log("No data received in event", eventData);
+              }
+            } catch (error) {
+              console.log("Error in hyperSDK response", error);
+            }
+          }
+
+          var sdkPayload = {
+            requestId: uuidv4(),
+            service: "in.juspay.hypercredit",
+            payload: {
+              hyperSDKDiv: "content",
+              integrationType: "iframe",
+              action: "initiate",
+              environment: "sandbox",
+              iframePermissions: "camera; otp-credentials;",
+              customerId: "",
+              isLoanLink: true,
+            },
+            betaAssets: true,
+          };
+          params.forEach((keyvalue) => {
+            if (keyvalue.split("=")[0] === "productName")
+              sdkPayload["payload"][keyvalue.split("=")[0]] = JSON.parse(
+                keyvalue.split("=")[1]
+              );
+            else if (keyvalue.split("=")[0] === "products")
+              sdkPayload["payload"][keyvalue.split("=")[0]] = JSON.parse(
+                keyvalue.split("=")[1]
+              );
+            else if (keyvalue.split("=")[0] === "isEtbFlow") {
+              sdkPayload["payload"][keyvalue.split("=")[0]] = JSON.parse(
+                keyvalue.split("=")[1].toLowerCase()
+              );
+            } else
+              sdkPayload["payload"][keyvalue.split("=")[0]] =
+                keyvalue.split("=")[1];
+          });
+
+          if (
+            sdkPayload.payload.merchantId &&
+            sdkPayload.payload.merchantId !== ""
+          ) {
+            localStorage.setItem("merchantId", sdkPayload.payload.merchantId);
+          } else {
+            sdkPayload.payload.merchantId = localStorage.getItem("merchantId");
+          }
+          if (
+            sdkPayload.payload.clientId &&
+            sdkPayload.payload.clientId !== ""
+          ) {
+            localStorage.setItem("clientId", sdkPayload.payload.clientId);
+          } else {
+            sdkPayload.payload.clientId = localStorage.getItem("clientId");
+          }
+          sdkPayload["payload"]["action"] = "initiate";
+          console.log("loanLinkFlowHandler sdkPayload", sdkPayload);
+          console.log(localStorage);
+
+          hyperServiceObject.initiate(sdkPayload, hyperCallbackHandler);
+        }
+
+        function etbFlowHandler() {
+          function etbCallbackHandler(eventData) {
+            console.info(" Event Result => ", eventData);
+            if (eventData) {
+              const eventJSON = eventData;
+              const event = eventJSON.event;
+              if (event == "hide_loader") {
+                let loaderLayout = document.getElementById("brandLoader");
+                if (loaderLayout) {
+                  loaderLayout.style.display = "none";
+                  loaderLayout.style.height = "0px";
+                }
+              } else if (
+                event == "initiate_result" &&
+                eventData.service == "in.juspay.hyperpay"
+              ) {
+                var processPayload = {
+                  requestId: uuidv4(),
+                  service: "in.juspay.hypercredit",
+                  payload: {
+                    action: "startLoanMarketPlace",
+                    customerId: "",
+                  },
+                };
+                params.forEach((keyvalue) => {
+                  if (keyvalue.split("=")[0] === "productName")
+                    processPayload["payload"][keyvalue.split("=")[0]] =
+                      JSON.parse(keyvalue.split("=")[1]);
+                  else if (keyvalue.split("=")[0] === "products")
+                    processPayload["payload"][keyvalue.split("=")[0]] =
+                      JSON.parse(keyvalue.split("=")[1]);
+                  else if (keyvalue.split("=")[0] === "isAgent")
+                    processPayload["payload"][keyvalue.split("=")[0]] =
+                      JSON.parse(keyvalue.split("=")[1]);
+                  else if (keyvalue.split("=")[0] === "isEtbFlow") {
+                    processPayload["payload"][keyvalue.split("=")[0]] =
+                      JSON.parse(keyvalue.split("=")[1].toLowerCase());
+                  } else {
+                    processPayload["payload"][keyvalue.split("=")[0]] =
+                      keyvalue.split("=")[1];
+                  }
+                });
+                if (
+                  !processPayload.payload.merchantId ||
+                  processPayload.payload.merchantId === ""
+                ) {
+                  processPayload.payload.merchantId =
+                    localStorage.getItem("merchantId");
+                }
+                if (
+                  !processPayload.payload.clientId ||
+                  processPayload.payload.clientId === ""
+                ) {
+                  processPayload.payload.clientId =
+                    localStorage.getItem("clientId");
+                }
+                hyperServiceObject.process(processPayload, etbCallbackHandler);
+              } else if (event == "process_result") {
+                if (eventData.error) {
+                  var processPayload = {
+                    requestId: uuidv4(),
+                    service: "in.juspay.hypercredit",
+                    payload: {
+                      action: "paymentPageStatusHandler",
+                      error: eventData.errorMessage,
+                    },
+                  };
+                  params.forEach((keyvalue) => {
+                    if (keyvalue.split("=")[0] === "environment") {
+                      processPayload["payload"][keyvalue.split("=")[0]] =
+                        keyvalue.split("=")[1];
+                    }
+                  });
+                  hyperServiceObject.process(
+                    processPayload,
+                    etbCallbackHandler
+                  );
+                }
+              } else if (event == "user_event") {
+                // PP events can come here
+              } else {
+                console.log("Unhandled event", event, " Event data", eventData);
+              }
+            }
+          }
+
+          var hyperPaySdkPayload = {
+            requestId: uuidv4(),
+            service: "in.juspay.hyperpay",
+            payload: {
+              hyperSDKDiv: "content",
+              integrationType: "iframe",
+              action: "initiate",
+              environment: "sandbox",
+              merchantId: localStorage.getItem("merchantId"),
+              clientId: localStorage.getItem("clientId"),
+              customerId: "",
+            },
+            betaAssets: true,
+          };
+
+          params.forEach((keyvalue) => {
+            if (keyvalue.split("=")[0] === "productName")
+              hyperPaySdkPayload["payload"][keyvalue.split("=")[0]] =
+                JSON.parse(keyvalue.split("=")[1]);
+            else if (keyvalue.split("=")[0] === "products")
+              hyperPaySdkPayload["payload"][keyvalue.split("=")[0]] =
+                JSON.parse(keyvalue.split("=")[1]);
+            else if (keyvalue.split("=")[0] === "isEtbFlow") {
+              hyperPaySdkPayload["payload"][keyvalue.split("=")[0]] =
+                JSON.parse(keyvalue.split("=")[1].toLowerCase());
+            } else
+              hyperPaySdkPayload["payload"][keyvalue.split("=")[0]] =
+                keyvalue.split("=")[1];
+          });
+          if (
+            hyperPaySdkPayload.payload.merchantId &&
+            hyperPaySdkPayload.payload.merchantId !== ""
+          ) {
+            localStorage.setItem(
+              "merchantId",
+              hyperPaySdkPayload.payload.merchantId
+            );
+          } else {
+            hyperPaySdkPayload.payload.merchantId =
+              localStorage.getItem("merchantId");
+          }
+          if (
+            hyperPaySdkPayload.payload.clientId &&
+            hyperPaySdkPayload.payload.clientId !== ""
+          ) {
+            localStorage.setItem(
+              "clientId",
+              hyperPaySdkPayload.payload.clientId
+            );
+          } else {
+            hyperPaySdkPayload.payload.clientId =
+              localStorage.getItem("clientId");
+          }
+
+          hyperPaySdkPayload["payload"]["action"] = "initiate";
+          hyperServiceObject.initiate(hyperPaySdkPayload, etbCallbackHandler);
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="content" style="border-radius: 1em"></div>
+    <div class="brandLoader" id="brandLoader"></div>
+    <script>
+      console.log("let check");
+      document.body.onload = function loadHyper() {
+        console.log("load Hyper");
+        console.info("load Hyper");
+        console.error("load Hyper");
+
+        generateView(); // Shimmer
+
+        const url = window.location.href;
+        var clientId = "common";
+        var params;
+        console.log("load Hyper");
+        try {
+          params = JSON.parse(atob(url.split("?v=")[1])).split("&");
+        } catch (error) {
+          params = url.split("?")[1].split("&");
+        }
+        params.forEach((keyvalue) => {
+          if (keyvalue.split("=")[0] === "clientId") {
+            clientId = keyvalue.split("=")[1];
+          }
+        });
+        console.error("load hyper script");
+        var script = document.createElement("script");
+        script.setAttribute(
+          "src",
+          "https://public.releases.juspay.in/hyper-sdk-web/beta/HyperServices.js"
+        );
+        script.setAttribute("clientId", clientId);
+        script.setAttribute("service", "in.juspay.hypercredit");
+        script.setAttribute("onload", "start()");
+        document.head.appendChild(script);
+
+        function createDiv(className) {
+          let div = document.createElement("div");
+          div.classList = className;
+          return div;
+        }
+        function generateView() {
+          let anim = "anim";
+          try {
+            let toolbar = createDiv("toolbar");
+            let toolbarContent = createDiv("toolbarContent");
+            toolbarContent.appendChild(createDiv("leftText " + anim));
+            toolbarContent.appendChild(createDiv("centerText " + anim));
+            toolbarContent.appendChild(createDiv("rightText " + anim));
+            toolbar.appendChild(toolbarContent);
+
+            let sectionHeader = createDiv("sectionHeader " + anim);
+
+            let screen = createDiv("screen");
+            let viewContainer = createDiv("viewContainer");
+            viewContainer.appendChild(sectionHeader);
+            let view = createDiv("view");
+            let sidebar = createDiv("sidebar");
+            let sideBarItem = createDiv("sidebarItem");
+            sideBarItem.appendChild(createDiv("sidebarIcon " + anim));
+            sideBarItem.appendChild(createDiv("sidebarText " + anim));
+
+            let i = 0;
+            while (i < 4) {
+              sidebar.appendChild(sideBarItem.cloneNode(true));
+              i++;
+            }
+            i = 0;
+
+            let juspayBranding = createDiv("juspayBrand");
+            const juspayBrandLogo =
+              "data:image/png;base64,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";
+
+            let jpImg = document.createElement("img");
+            jpImg.classList = "brandLogo";
+            jpImg.src = juspayBrandLogo;
+            jpImg.alt = "Powered by JUSPAY";
+
+            juspayBranding.appendChild(jpImg);
+
+            jpImg.style.display = "flex";
+
+            let filler = createDiv("filler");
+            sidebar.appendChild(filler);
+            sidebar.appendChild(juspayBranding);
+
+            let listContainer = createDiv("listContainer");
+            listContainer.appendChild(createDiv("listContainerHeader " + anim));
+            let listItems = createDiv("listItems");
+
+            let listItem = createDiv("listItem");
+
+            let listItemText = createDiv("listItemText");
+            let line = createDiv("line " + anim);
+            while (i < 2) {
+              listItemText.appendChild(line.cloneNode(true));
+              i++;
+            }
+            i = 0;
+            listItem.appendChild(createDiv("icon " + anim));
+            listItem.appendChild(listItemText);
+            listItem.appendChild(createDiv("smallIcon " + anim));
+
+            while (i < 4) {
+              listItems.appendChild(listItem.cloneNode(true));
+              i++;
+            }
+            i = 0;
+
+            listContainer.appendChild(listItems);
+            listContainer.appendChild(filler.cloneNode(true));
+
+            let mobileBranding = createDiv("juspayBrand mobileBranding");
+            mobileBranding.appendChild(jpImg.cloneNode(true));
+            listContainer.appendChild(mobileBranding);
+
+            view.appendChild(sidebar);
+            view.appendChild(listContainer);
+            viewContainer.appendChild(view);
+            screen.appendChild(viewContainer);
+            let brandLoader = document.getElementById("brandLoader");
+            brandLoader.appendChild(toolbar);
+            brandLoader.appendChild(screen);
+          } catch (e) {}
+        }
+      };
+    </script>
+  </body>
+</html>
