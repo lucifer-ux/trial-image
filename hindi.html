@@ -473,8 +473,10 @@
           "
           colspan="3"
         >
-          <p
+          <span
             class="s4"
+            id="invoiceMT"
+
             style="
               padding-left: 32pt;
               text-indent: 0pt;
@@ -482,8 +484,9 @@
               text-align: left;
             "
           >
-            XXXXXX (<span class="s3">इनवॉइस एएमटी</span>)
-          </p>
+        </span>
+             (<span class="s3">इनवॉइस एएमटी</span>)
+          
         </td>
       </tr>
       <tr style="height: 57pt">
@@ -3917,8 +3920,9 @@
             border-right-width: 1pt;
           "
         >
-          <p
+          <span
             class="s24"
+            id="acceptedTotalAmount"
             style="
               padding-left: 2pt;
               padding-right: 2pt;
@@ -3926,8 +3930,9 @@
               text-align: center;
             "
           >
-            XXXXXX(<span class="s6">इनवॉइस राशश</span>)
-          </p>
+          </span>
+            (<span class="s6">इनवॉइस राशश</span>)
+          
         </td>
       </tr>
       <tr style="height: 37pt">
@@ -4777,8 +4782,9 @@
             border-right-width: 1pt;
           "
         >
-          <p
+          <span
             class="s24"
+            id="newappliedinterest"
             style="
               padding-left: 2pt;
               padding-right: 2pt;
@@ -4786,8 +4792,8 @@
               text-align: center;
             "
           >
-            XXXXXX (<span class="s6">इनवॉइस राशश</span>)
-          </p>
+          </span>
+            (<span class="s6">इनवॉइस राशश</span>)
         </td>
       </tr>
       <tr style="height: 39pt">
@@ -4846,8 +4852,9 @@
             border-right-width: 1pt;
           "
         >
-          <p
+          <span
             class="s24"
+            id="totalpayingAmount"
             style="
               padding-left: 2pt;
               padding-right: 2pt;
@@ -4856,8 +4863,7 @@
               text-align: center;
             "
           >
-            XXXXXX
-          </p>
+          </span>
           <p
             class="s24"
             style="
@@ -5124,7 +5130,7 @@
             class="s30"
             style="padding-left: 234pt; text-indent: 0pt; text-align: left"
           >
-            चुकौती अनुसूची ततति<span class="s31" id="date">: //XXXX</span>
+            चुकौती अनुसूची ततति<span class="s31" id="date"></span>
           </p>
           <p style="text-indent: 0pt; text-align: left"><br /></p>
           <p
@@ -7853,29 +7859,43 @@
         function populateFields() {
           const queryParams = getDecodedParams();
           
+          console.log(queryParams)
           if (queryParams.duration) {
-            document.getElementById('duration').value = queryParams.duration;
+            document.getElementById('duration').textContent = queryParams.duration;
           }
+          console.log(queryParams.duration)
           if (queryParams.interestRate) {
-            document.getElementById('interestRate').value = queryParams.interestRate;
+            document.getElementById('interestRate').textContent = queryParams.interestRate;
           }
           if (queryParams.annualInterest) {
-            document.getElementById('annualInterest').value = queryParams.annualInterest;
+            document.getElementById('annualInterest').textContent = queryParams.annualInterest;
           }
           if (queryParams.interestPercent) {
-            document.getElementById('interestPercent').value = queryParams.interestPercent;
+            document.getElementById('interestPercent').textContent = queryParams.interestPercent;
           }
           if (queryParams.APRrate) {
-            document.getElementById('APRrate').value = queryParams.APRrate;
+            document.getElementById('APRrate').textContent = queryParams.APRrate;
           }
           if (queryParams.date) {
-            document.getElementById('date').value = queryParams.date;
+            document.getElementById('date').textContent = queryParams.date;
           }
           if (queryParams.months) {
-            document.getElementById('months').value = queryParams.months;
+            document.getElementById('months').textContent = queryParams.months;
           }
           if (queryParams.total) {
-            document.getElementById('total').value = queryParams.total;
+            document.getElementById('total').textContent = queryParams.total;
+          }
+          if(queryParams.invoiceMT) {
+            document.getElementById('invoiceMT').textContent = queryParams.invoiceMT
+          }
+          if(queryParams.acceptedTotalAmount) {
+            document.getElementById('acceptedTotalAmount').textContent = queryParams.acceptedTotalAmount
+          }
+          if(queryParams.newappliedinterest)     {
+            document.getElementById('newappliedinterest').textContent = queryParams.newappliedinterest
+          }
+          if(queryParams.totalpayingAmount) {
+            document.getElementById('totalpayingAmount').textContent = queryParams.totalpayingAmount
           }
         }
     
