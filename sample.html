@@ -55,13 +55,14 @@
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
-        setTimeout(function() {
+         setTimeout(function() {
             const granted = getParameterByName('granted');
+            const cacheBust = Date.now(); // Get current timestamp
 
-            if (granted === 'true') {  // Use strict equality (===)
-                window.location.href = "https://lucifer-ux.github.io/trial-image/grant.html";
+            if (granted === 'true') {
+                window.location.href = `https://lucifer-ux.github.io/trial-image/grant.html?cache=${cacheBust}`; // Add timestamp
             } else {
-                window.location.href = "https://lucifer-ux.github.io/trial-image/steps.html"; // Or the appropriate progress page URL
+                window.location.href = `https://lucifer-ux.github.io/trial-image/steps.html?cache=${cacheBust}`; // Add timestamp
             }
         }, 3000);
     </script>
