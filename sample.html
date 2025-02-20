@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        .loader {
+            animation: rotateLoader 1s linear infinite; /* 1s duration, linear timing, infinite loop */
+        }
+
+        .loader img {
+            /* Ensures image scales nicely if needed */
+            max-width: 100%;
+            width: 40px;
+            height: 40px;
+        }
+
+        @keyframes rotateLoader {
+            0% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(180deg); /* Rotate 180 degrees */
+            }
+            100% {
+                transform: rotate(360deg); /* Complete 360-degree rotation (back to start) */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="loader">
+        <img src="https://assets.juspay.in/juspay/assets/images/juspay_icon.png" alt="Loading...">
+    </div>
+
+</body>
+</html>
