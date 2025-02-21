@@ -5,36 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loading...</title>
     <style>
-        body, html {
+      body, html {
+          height: 100%;
+          margin: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: #f0f0f0;
+      }
+        iframe {
             height: 100%;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f0f0f0;
-        }
-        .loader {
-            animation: rotateLoader 1s linear infinite;
-        }
-        .loader img {
-            max-width: 100%;
-            width: 40px;
-            height: 40px;
-        }
-        @keyframes rotateLoader {
-            0% { transform: rotate(0deg); }
-            50% { transform: rotate(180deg); }
-            100% { transform: rotate(360deg); }
-        }
-        #stepsIframe {
             width: 100%;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            border: none;
         }
-    </style>
+      .loader {
+          animation: rotateLoader 1s linear infinite; /* 1s duration, linear timing, infinite loop */
+      }
+
+        #stepsIframe {
+      width: 100%; /* Take full width */
+      height: 100%; /* Take full height */
+      position: fixed; /* Ensure it stays in place */
+      top: 0;
+      left: 0;
+      border: none; /* Remove any default border */
+    }
+
+      .loader img {
+          /* Ensures image scales nicely if needed */
+          max-width: 100%;
+          width: 40px;
+          height: 40px;
+      }
+
+      @keyframes rotateLoader {
+          0% {
+              transform: rotate(0deg);
+          }
+          50% {
+              transform: rotate(180deg); /* Rotate 180 degrees */
+          }
+          100% {
+              transform: rotate(360deg); /* Complete 360-degree rotation (back to start) */
+          }
+      }
+  </style>
 </head>
 <body>
 
@@ -43,44 +57,53 @@
     </div>
 
     <script>
-        // Function to get query parameters
+        // Function to get a URL parameter value
         function getParameterByName(name, url = window.location.href) {
-            const params = new URL(url).searchParams;
-            return params.get(name);
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
-        // Check if 'granted=true' is present in the URL
-        const granted = getParameterByName('granted');
-
-        if (granted === 'true') {
-            console.log("Closing CCT due to granted=true");
-            window.location.href = "intent://close#Intent;scheme=closecct;end;";
-        } else {
-            // Load iframe after 3 seconds
-            setTimeout(() => {
-                const cacheBust = Date.now();
-                const iframe = document.createElement('iframe');
-                iframe.id = 'stepsIframe';
-
-                iframe.src = `https://lucifer-ux.github.io/trial-image/steps.html?cache=${cacheBust}`;
-
-                document.body.appendChild(iframe);
-
-                iframe.onload = function() {
-                    document.querySelector('.loader').style.display = 'none';
-                };
-            }, 3000);
-        }
-
-        // Listen for messages from the iframe
-        window.addEventListener('message', (event) => {
-            if (event.data.action === 'openUrl') {
-                console.log("Opening URL: ", event.data.url);
-                window.location.href = event.data.url;
+          const urlParams = new URLSearchParams(window.location.search);
+            const shouldCloseCCT = urlParams.get("granted");
+            if (shouldCloseCCT === "true") {
+                window.location.href = "intent://close#Intent;scheme=closecct;end;";
             }
-        });
+        
+    window.addEventListener('message', (event) => {
+        if (event.data.action === 'openUrl') {
+            window.location.href = event.data.url;
+            console.log(url);
+        }
+    });
+
+        setTimeout(function() {
+            const granted = getParameterByName('granted');
+            const cacheBust = Date.now();
+
+            // Create the iframe element
+            const iframe = document.createElement('iframe');
+            iframe.id = 'stepsIframe'; // Set an ID for easier reference later
+
+            if (granted === 'true') {
+                iframe.src = https://lucifer-ux.github.io/trial-image/grant.html?cache=${cacheBust};
+                window.location.href = "intent://close#Intent;scheme=closecct;end;";
+            } else {
+                iframe.src = https://lucifer-ux.github.io/trial-image/steps.html?cache=${cacheBust};
+            }
+
+            // Add the iframe to the page
+            document.body.appendChild(iframe);
+
+            // Optionally hide the loader after the iframe is loaded
+            iframe.onload = function() {
+                document.querySelector('.loader').style.display = 'none';
+            };
+        }, 3000);
 
     </script>
 
 </body>
-</html>
