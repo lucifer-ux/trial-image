@@ -70,6 +70,7 @@
     window.addEventListener('message', (event) => {
         if (event.data.action === 'openUrl') {
             window.location.href = event.data.url;
+            console.log(url);
         }
     });
 
