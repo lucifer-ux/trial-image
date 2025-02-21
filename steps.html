@@ -3,104 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Next Page</title>
+    <title>Button Options</title>
+    <script>
+      function simulateDigilocker() {
+        // Send a message to the parent window (abc.com)
+        parent.postMessage({ 
+          action: 'openUrl', 
+          url: 'https://your-digilocker-url.com' 
+        }, 'https://abc.com');
+      }
+    </script>
     <style>
-        body, html {
-            height: 100%;
-            margin: 0;
+        body {
+            font-family: sans-serif;
             display: flex;
-            flex-direction: column; /* Align items vertically */
-            align-items: center;     /* Center horizontally */
-            justify-content: center; /* Center vertically */
-        }
-
-        .progress-bar {
-            display: flex;
-            width: 80%; /* Adjust width as needed */
-            max-width: 600px; /* Limit width on larger screens */
-            margin-bottom: 20px; /* Space between progress bar and button */
-            border: 1px solid #ccc;
-            box-sizing: border-box; /* Include padding and border in element's total width and height */
-        }
-
-        @media (max-width: 400px) { /* Mobile view */
-            .progress-bar {
-                width: 95%; /* Make progress bar almost full width on small screens */
-                font-size: smaller;
-            }
-        }
-
-        .progress-step {
-            flex: 1;
-            height: 30px;
-            width: 200px;
-            background-color: #eee;
-            border-right: 1px solid #ccc;
-            display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            box-sizing: border-box;
-            margin: 12px;
-            padding: 12px; /* Add some padding for small screens */
-            overflow: hidden; /* Hide overflowing text */
-        }
-        .progress-step:last-child{
-            border-right: none;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
         }
 
-        .progress-step.active {
-            background-color: #4CAF50;
+      .button-container {
+            display: flex;
+            gap: 20px; /* Space between buttons */
+        }
+
+      .button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease; /* Smooth transitions */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+      .button-primary {
+            background-color: #4CAF50; /* Green */
             color: white;
         }
-        .progress-step span{
-            font-size: small;
-            white-space: nowrap;
+
+      .button-secondary {
+            background-color: #008CBA; /* Blue */
+            color: white;
         }
 
-        .container {
-            text-align: center;
+      .button:hover {
+            transform: translateY(-2px); /* Move up slightly on hover */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Increase shadow on hover */
         }
-        #completeButton {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
+
+        /* Add animations (optional) */
+      .button-primary {
+            animation: pulse 1.5s infinite; /* Pulse animation */
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="progress-bar">
-        <div class="progress-step" id="kyc"><span>KYC</span></div>
-        <div class="progress-step" id="downpayment"><span>Downpayment</span></div>
-        <div class="progress-step" id="repayment"><span>Repayment</span></div>
-        <div class="progress-step" id="agreement"><span>Agreement</span></div>
-        <div class="progress-step" id="grantloan"><span>Grant Loan</span></div>
+    <div class="button-container">
+        <button class="button button-secondary">Simulate Digilocker</button>
+        <button class="button button-primary">Proceed to Grant Loan</button>
     </div>
-
-    <div class="container">
-        <button id="completeButton">Complete KYC</button>
-    </div>
-
-    <script>
-        const steps = ["kyc", "downpayment", "repayment", "agreement", "grantloan"];
-        let currentStepIndex = 0;
-        const completeButton = document.getElementById("completeButton");
-        const progressSteps = document.querySelectorAll(".progress-step");
-
-        completeButton.addEventListener("click", () => {
-            if (currentStepIndex < steps.length) {
-                progressSteps[currentStepIndex].classList.add("active");
-                currentStepIndex++;
-
-                if (currentStepIndex < steps.length) {
-                    completeButton.textContent = "Complete " + steps[currentStepIndex].charAt(0).toUpperCase() + steps[currentStepIndex].slice(1);
-                } else {
-                    // Redirect to loan granted page
-                    window.location.href = "sample.html?granted=true"; // Redirect to loading.html
-                }
-            }
-        });
-    </script>
 
 </body>
 </html>
