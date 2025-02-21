@@ -55,16 +55,29 @@
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
-         setTimeout(function() {
+        setTimeout(function() {
             const granted = getParameterByName('granted');
-            const cacheBust = Date.now(); // Get current timestamp
+            const cacheBust = Date.now();
+
+            // Create the iframe element
+            const iframe = document.createElement('iframe');
+            iframe.id = 'stepsIframe'; // Set an ID for easier reference later
 
             if (granted === 'true') {
-                window.location.href = `https://lucifer-ux.github.io/trial-image/grant.html?cache=${cacheBust}`; // Add timestamp
+                iframe.src = `loan_granted.html?cache=${cacheBust}`;
             } else {
-                window.location.href = `https://lucifer-ux.github.io/trial-image/steps.html?cache=${cacheBust}`; // Add timestamp
+                iframe.src = `https://lucifer-ux.github.io/trial-image/steps.html?cache=${cacheBust}`;
             }
+
+            // Add the iframe to the page
+            document.body.appendChild(iframe);
+
+            // Optionally hide the loader after the iframe is loaded
+            iframe.onload = function() {
+                document.querySelector('.loader').style.display = 'none';
+            };
         }, 3000);
+
     </script>
 
 </body>
