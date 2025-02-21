@@ -55,6 +55,12 @@
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
+    window.addEventListener('message', (event) => {
+        if (event.data.action === 'openUrl') {
+            window.location.href = event.data.url;
+        }
+    });
+
         setTimeout(function() {
             const granted = getParameterByName('granted');
             const cacheBust = Date.now();
