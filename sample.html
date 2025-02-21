@@ -67,6 +67,11 @@
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get("granted") === "true") {
+            window.close(); // Closes the tab (if it was opened via JavaScript)
+        }
+        
     window.addEventListener('message', (event) => {
         if (event.data.action === 'openUrl') {
             window.location.href = event.data.url;
