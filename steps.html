@@ -12,7 +12,8 @@
         let demodiv = document.getElementById("demo1");
         demodiv.textContent = "message recieved";
         if (event.data === "lenderWebRedirection"){
-            demodiv.textContent = "message recieved lenderWebRedirection";
+            newTab.close();
+            demodiv.textContent = "lenderWebRedirection";
         }
         console.log(event);
         
