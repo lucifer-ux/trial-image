@@ -7,10 +7,11 @@
     <script>
       function simulateDigilocker() {
         // Send a message to the parent window (abc.com)
-        parent.postMessage({ 
-          action: 'openUrl', 
-          url: 'https://digiosample.vercel.app/digioSample.html' 
-        }, '*');
+        window.open("https://digiosample.vercel.app/digioSample.html","_blank");
+        // parent.postMessage({ 
+        //   action: 'openUrl', 
+        //   url: 'https://digiosample.vercel.app/digioSample.html' 
+        // }, '*');
       }
     </script>
     <style>
