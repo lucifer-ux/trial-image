@@ -7,7 +7,16 @@
     <script>
       function simulateDigilocker() {
         // Send a message to the parent window (abc.com)
-        window.open("https://digiosample.vercel.app/digioSample.html","_blank");
+        const newTab = window.open("https://digiosample.vercel.app/digioSample.html","_blank");
+        window.top.addEventListener('message', (event) => {
+        let demodiv = document.getElementById("demo1");
+        demodiv.textContent = "message recieved";
+        if (event.data === "lenderWebRedirection"){
+            demodiv.textContent = "message recieved lenderWebRedirection";
+        }
+        console.log(event);
+        
+        });
         // parent.postMessage({ 
         //   action: 'openUrl', 
         //   url: 'https://digiosample.vercel.app/digioSample.html' 
@@ -76,6 +85,7 @@
 <body>
 
     <div class="button-container">
+        <p id="demo1"></p>
         <button onclick="simulateDigilocker()" class="button button-secondary">Simulate Digilocker</button>
         <button class="button button-primary">Proceed to Grant Loan</button>
     </div>
