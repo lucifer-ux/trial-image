@@ -16,7 +16,7 @@
         const origin = decodeURIComponent(urlParams.get('origin'));
 
         if (window.opener) {
-            window.opener.postMessage('lenderWebRedirection', origin); // Send message to original window
+            window.opener.postMessage('lenderWebRedirection'); // Send message to original window
         }
         window.onload = function() {
             	window.opener.parent.postMessage("lenderWebRedirection", '*');
