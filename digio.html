@@ -12,6 +12,16 @@
         const goBack = () => {
             window.location.href = "https://lucifer-ux.github.io/trial-image/sample.html/?granted=true";
         }
+        const urlParams = new URLSearchParams(window.location.search);
+        const origin = decodeURIComponent(urlParams.get('origin'));
+
+        if (window.opener) {
+            window.opener.postMessage('closeTab', origin); // Send message to original window
+        }
+
+        window.addEventListener('load', () => {
+            window.close(); // Close the current tab
+        });
     </script>
 </head>
 <body style="text-align: center; font-family: Arial, sans-serif;">
