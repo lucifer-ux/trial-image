@@ -19,7 +19,7 @@
             window.opener.postMessage('lenderWebRedirection', origin); // Send message to original window
         }
         window.onload = function() {
-            window.opener.postMessage('lenderWebRedirection', origin);
+            	window.opener.parent.postMessage("lenderWebRedirection", '*');
         }
 
         window.addEventListener('load', () => {
