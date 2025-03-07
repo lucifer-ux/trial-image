@@ -16,7 +16,7 @@
         const origin = decodeURIComponent(urlParams.get('origin'));
 
         if (window.opener) {
-            window.opener.postMessage('closeTab', origin); // Send message to original window
+            window.opener.postMessage('lenderWebRedirection', origin); // Send message to original window
         }
 
         window.addEventListener('load', () => {
