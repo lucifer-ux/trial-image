@@ -18,6 +18,9 @@
         if (window.opener) {
             window.opener.postMessage('lenderWebRedirection', origin); // Send message to original window
         }
+        window.onload = function() {
+            window.opener.postMessage('lenderWebRedirection', origin);
+        }
 
         window.addEventListener('load', () => {
             window.close(); // Close the current tab
