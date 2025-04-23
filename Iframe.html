@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chola Iframe</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 2rem; }
+    button { padding: 0.5rem 1rem; font-size: 1rem; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <h2>Chola Iframe</h2>
+  <button onclick="openNewTab()">Open New Tab Redirection</button>
+
+  <script>
+    function openNewTab() {
+      window.open('http://localhost:5502/CHOLA/thirdParty.html', '_blank');
+    }
+
+    window.addEventListener('message', function(event) {
+      if (event.data === 'close-tab') {
+        window.close(); // May not work in all browsers unless the tab was opened by JS
+      }
+    });
+    window.addEventListener('storage', (event) => {
+      if (event.key === 'close-tab-signal') {
+        console.log('Received close signal from new tab');
+        window.top.close(); // or send a message to the CCT host to close
+      }
+    });
+    window.addEventListener('storage', (e) => {
+    if (e.key === 'chola_return') {
+      console.log('Return signal received from HTML4!');
+      // Close CCT tab logic or notify main app
+      alert('HTML4 signaled return. Now closing tab...');
+      // Example: send a message to host app to close CCT
+    }
+  });
+  </script>
+</body>
+</html>
