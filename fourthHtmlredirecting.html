@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Returning to Chola</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 2rem; }
+    #countdown { font-size: 2rem; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <h2>Returning to Chola...</h2>
+  <p>You'll be redirected back shortly.</p>
+  <div id="countdown">3</div>
+
+  <script>
+    let seconds = 3;
+    const countdownElement = document.getElementById('countdown');
+
+    const interval = setInterval(() => {
+      seconds--;
+      countdownElement.textContent = seconds;
+      if (seconds === 0) {
+        clearInterval(interval);
+        // ✅ Send signal back via localStorage
+        localStorage.setItem('chola_return', Date.now());
+
+        // Optional: close this tab after a delay
+        setTimeout(() => {
+          window.close(); // May or may not work based on browser
+        }, 1000);
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
