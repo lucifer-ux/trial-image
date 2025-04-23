@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>KYC Process</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 2rem; }
+    button { padding: 0.5rem 1rem; font-size: 1rem; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <h2>KYC Process - Third Party URL</h2>
+  <button onclick="returnToChola()">Return Back to Chola</button>
+
+  <script>
+    function returnToChola() {
+      window.location.href = 'http://localhost:5502/CHOLA/fourthHtmlredirecting.html';
+    }
+    let countdown = 3;
+  const countdownEl = document.getElementById('countdown');
+
+  const interval = setInterval(() => {
+    countdown--;
+    countdownEl.textContent = countdown;
+    if (countdown === 0) {
+      clearInterval(interval);
+      // Send signal via localStorage
+      localStorage.setItem('close-tab-signal', Date.now());
+      // Optional: clear it
+      setTimeout(() => localStorage.removeItem('close-tab-signal'), 500);
+    }
+  }, 1000);
+  </script>
+</body>
+</html>
