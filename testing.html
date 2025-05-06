@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Redirecting...</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: #333;
+    }
+
+    .message {
+      font-size: 1.8rem;
+      font-weight: 500;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .loader {
+      width: 60px;
+      height: 60px;
+      border: 6px solid #cfd8dc;
+      border-top: 6px solid #26a69a;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="message">Redirecting for further steps...</div>
+  <div class="loader"></div>
+
+  <script>
+    var redirect = function () {
+      document.location.href =
+        "https://assets.juspay.in/hyper/bundles/web/beta/in.juspay.hypercredit/2.0.0/common/stable/redirect.html";
+    };
+
+    setTimeout(redirect, 2000);
+  </script>
+</body>
+</html>
