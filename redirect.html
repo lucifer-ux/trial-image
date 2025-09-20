@@ -1,92 +1,25 @@
 <!DOCTYPE html>
+ 
 <html lang="en">
   <head>
     <title>Loan MarketPlace</title>
     <link rel="icon" type="image/png" href="https://picasso.juspay.in/images/juspay/icon/base_color.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
       window.onload = function () {
         try {
-          var url = window.location.href
-          var urlParams = new URLSearchParams(window.location.search);
-
-          // Check if chromeCustomTab query parameter exists and update UI accordingly
-          if (urlParams.has('chromeCustomTab')) {
-            // Show the custom UI for chromeCustomTab
-            document.querySelector('.container p').textContent = 'Please do not close this window, we are fetching your status.';
-            document.querySelector('.logo').classList.add('spinning');
-          }
-
-          // Execute postMessage logic in both cases
           var closeMsg = 'lenderWebRedirection'
-          if(url.includes('?'))
-            closeMsg = {
-              event: 'lenderWebRedirection',
-              payload: url
-            }
           // for handling urlHandleType : `Iframe`
-          if(window && window.parent)
+          if(window && window.parent) 
               window.parent.postMessage(closeMsg, '*');
-
+        
           // for handling urlHandleType : `Tab`
           if(window.opener && window.opener.parent)
               window.opener.parent.postMessage(closeMsg, '*');
-
+            
         } catch (e) {
           console.error("Redirection ", e);
         }
       };
     </script>
-    <style>
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        background-color: #f7f8f9;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-      }
-      .container {
-        text-align: center;
-        background-color: #ffffff;
-        padding: 40px;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        max-width: 400px;
-      }
-      .logo {
-        width: 100px;
-        margin-bottom: 20px;
-      }
-      .logo.spinning {
-        animation: spin 2s linear infinite;
-        width: 50px;
-      }
-      @keyframes spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-      }
-      p {
-        font-size: 16px;
-        color: #333;
-        line-height: 1.5;
-      }
-      @media (max-width: 480px) {
-        .container {
-          padding: 20px;
-          max-width: 90%;
-        }
-        p {
-          font-size: 18px;
-        }
-      }
-    </style>
   </head>
-  <body>
-    <div class="container">
-      <img src="https://dth95m2xtyv8v.cloudfront.net/tesseract/assets/hyper-checkout/juspay.png" alt="Juspay Logo" class="logo">
-      <p>You are now being redirected to the merchant's page. If this window does not close automatically, please close it and return to the merchant's page for further details.</p>
-    </div>
-  </body>
 </html>
